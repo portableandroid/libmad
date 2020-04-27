@@ -41,15 +41,15 @@ add_library(mad STATIC
 # target_link_libraries(mad android log)
 
 # copy out the lib binary... need to leave the static lib around to pass gradle check
-set(distribution_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../${TARGET_DIR})
+#set(distribution_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../${TARGET_DIR})
 set_target_properties(mad
                       PROPERTIES
                       ARCHIVE_OUTPUT_DIRECTORY
-                      "${distribution_DIR}/libmad/lib/${ANDROID_ABI}")
+                      "${distribution_DIR}/libmad/${CFG_FLAVOR}/${CFG_BUILD_TYPE}/${ANDROID_ABI}")
 
 # copy out lib header file...
 add_custom_command(TARGET mad POST_BUILD
                    COMMAND "${CMAKE_COMMAND}" -E
                    copy "${CMAKE_CURRENT_SOURCE_DIR}/mad.h"
-                   "${distribution_DIR}/libmad/include/mad.h"
+                   "${distribution_DIR}/libmad/${CFG_FLAVOR}/include/mad.h"
                    COMMENT "Copying mad to output directory")
